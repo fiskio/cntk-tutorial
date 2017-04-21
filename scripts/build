@@ -1,0 +1,6 @@
+#!/bin/bash
+
+docker build --rm -t cntk-tutorial .
+#docker build --rm -t cntk-tutorial -f Dockerfile_CNTK
+#docker build --rm -t tensorboard -f Dockerfile_Tensorboard
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+nvidia-docker run -it -p 8888:8888 -p 6006:6006 -v `pwd`/notebooks:/notebooks cntk-tutorial bash -c "source /cntk/activate-cntk && tensorboard --logdir /logs" bash -c "source /cntk/activate-cntk && jupyter notebook --ip=*"
+

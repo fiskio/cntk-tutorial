@@ -1,0 +1,34 @@
+FROM microsoft/cntk:latest
+
+RUN apt-get update && \
+    apt-get install -qy libxtst6 libsm-dev libxrender-dev nodejs-legacy npm
+
+ENV LC_ALL=C.UTF-8 \
+    LANG=C.UTF-8
+
+RUN bash -c \
+    "source /cntk/activate-cntk && \
+     conda install jupyter h5py click pyqt=4.11"
+
+COPY . /tmp/dlt
+
+RUN bash -c \
+    "source /cntk/activate-cntk && \
+     cd /tmp/dlt && \
+     python setup.py install"
+
+RUN bash -c \
+    "source /cntk/activate-cntk && \
+     python3 -c 'import matplotlib.pyplot'"
+
+RUN bash -c \
+    "source /cntk/activate-cntk && \
+     cd /tmp/dlt && \
+     ./scripts/prepare_uji /data/uji /test/uji"
+
+WORKDIR /notebooks
+
+CMD bash -c \
+    "source /cntk/activate-cntk && \
+     mkdir -p /logs && \
+     jupyter notebook --ip=* --no-browser"
