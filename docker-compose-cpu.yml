@@ -1,0 +1,21 @@
+version: '2'
+services:
+  jupyter:
+    image: fiskio/cntk-tutorial:1.0-cpu
+    ports:
+      - "8888:8888"
+    volumes:
+      - "./logs:/logs"
+      - "./notebooks:/notebooks"
+  tensorboard:
+    image: tensorflow/tensorflow:latest
+    ports:
+      - "6006:6006"
+    volumes_from:
+      - jupyter
+    command:
+      - "tensorboard"
+      - "--logdir"
+      - "/logs"
+      - "--host"
+      - "0.0.0.0"

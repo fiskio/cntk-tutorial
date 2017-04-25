@@ -1,7 +1,7 @@
 version: '2'
 services:
   jupyter:
-    image: cntk-tutorial
+    image: fiskio/cntk-tutorial:1.0-gpu
     ports:
       - "8888:8888"
     volumes:
